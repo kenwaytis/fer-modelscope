@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  fer-modelscope:
+    image: paidax/fer-modelscope:0.0.1
+    container_name: fer-modelscope
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - 10056:10056
+    command: tail -f /dev/null
