@@ -9,7 +9,7 @@ RUN pip install \
 
 WORKDIR /home/fer
 
-COPY ./download_model.py /home/ocr/download_model.py
+COPY ./download_model.py /home/fer/download_model.py
 
 RUN python download_model.py
 
