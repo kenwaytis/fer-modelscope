@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   fer-modelscope:
-    image: paidax/fer-modelscope:0.0.5
+    image: paidax/fer-modelscope:0.0.6
     container_name: fer-modelscope
     deploy:
       resources:

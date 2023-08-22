@@ -80,6 +80,7 @@ async def predict_image(items:Image):
         # results[0]['max_emotion'] = max_emotion
         # json_data = json.dumps(results_final)
         # json_data = json_data.replace("'", '"')
+        results_final = json.dumps(results_final)
         logger.info(results_final)
         return results_final
     except Exception as e:
