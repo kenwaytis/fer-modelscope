@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   fer-modelscope:
-    image: paidax/fer-modelscope:0.0.1
+    image: paidax/fer-modelscope:0.0.5
     container_name: fer-modelscope
     deploy:
       resources:
@@ -11,5 +11,5 @@ services:
               count: all
               capabilities: [gpu]
     ports:
-      - 10056:10056
-    command: tail -f /dev/null
+      - 9000:9000
+    command: uvicorn main:app --port 9000 --host 0.0.0.0
