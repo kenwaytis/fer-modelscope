@@ -1,3 +1,5 @@
+import aiohttp
+import asyncio
 import base64
 from io import BytesIO
 import requests
@@ -51,11 +53,13 @@ async def json_reorganize(list_values, dictionary):
 
     return result
 
-def download(url):
-    data = requests.get(url).content
-    # 使用PIL从文件对象读取图像
-    image = PILImage.open(BytesIO(data))
-    return image
+async def download(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            data = await response.read()
+            # 使用PIL从文件对象读取图像
+            image = PILImage.open(BytesIO(data))
+            return image
 
 def b64_decode(b64_file):
     # 解码base64数据
@@ -67,7 +71,7 @@ def b64_decode(b64_file):
 @app.post("/fer", tags=["FER"], summary="Predict emotions in an image", response_description="Emotion detection results")
 async def predict_image(items:Image):
     try:
-        pil_data = download(items.image)
+        pil_data = await download(items.image)
         results_face = face_detector(pil_data)
         try:
             points = results_face['boxes'][0]
@@ -143,5 +147,6 @@ async def health_check():
 
     except:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+
 
 
