@@ -12,4 +12,4 @@ services:
               capabilities: [gpu]
     ports:
       - 9000:9000
-    command: tail -f /dev/null
+    command: uvicorn main:app --port 9000 --host 0.0.0.0
